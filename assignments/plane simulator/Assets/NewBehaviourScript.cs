@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
+
 
 public class PlaneScript : MonoBehaviour
 {
@@ -13,6 +15,10 @@ public class PlaneScript : MonoBehaviour
     float zRotationSpeed = 60f; // Roll (tilt left and right)
     float zResetSpeed = 2f; // Speed at which the Z-axis rotation is reset
     bool resetZRotation = false;
+    int score = 0;
+
+    public TMP_Text scoreText;
+    public TMP_Text end;
 
     void Start()
     {
@@ -76,29 +82,37 @@ public class PlaneScript : MonoBehaviour
     }
 
     // This function will be called when the plane collides with a CollidableObject
-    private void OnTriggerEnter(Collider other)
+    public void OnTriggerEnter(Collider other)
     {
-        
+        if(other.CompareTag("collectables")){
+            
+            // Removes/destroys the Collectable
+            Destroy(other.gameObject);
 
-        
-        Destroy(other.gameObject);
-        // Reset the forward speed to the maximum speed
-        forwardSpeed = maxForwardSpeed;
+            // Reset the forward speed to the maximum speed
+            forwardSpeed = maxForwardSpeed;
 
-        // Optional: You can also print a message to confirm the reset
-        Debug.Log("Collided! Speed reset to maximum.");
-        
+            // Adds to score and scoreText
+            score++;
+            if (score == 21){
+                scoreText.text = "";
+                end.text = "YOU WIN!";
+            }
+            scoreText.text = "Score: " + score + "\nRemaining:" + (21 - score);
+
+        }     
     }
+
     private void OnCollisionEnter(Collision collision)
-{
-    // Check if the collided object is the terrain (assuming it has the tag "Terrain")
-    if (collision.gameObject.CompareTag("Terrain"))
     {
-        // Print a message to the console
-        Debug.Log("Plane hit the terrain and will be destroyed.");
+        // Check if the collided object is the terrain (assuming it has the tag "Terrain")
+        if (collision.gameObject.CompareTag("Terrain"))
+        {
+            // Print a message to the console
+            Debug.Log("Plane hit the terrain and will be destroyed.");
 
-        // Destroy the plane (this GameObject)
-        Destroy(gameObject);
+            // Destroy the plane (this GameObject)
+            Destroy(gameObject);
+        }
     }
-}
 }

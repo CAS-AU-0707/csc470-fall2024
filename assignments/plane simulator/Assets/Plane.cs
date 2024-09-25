@@ -58,6 +58,9 @@ public class PlaneScript : MonoBehaviour
         // Gradually reduce the forward speed over time
         forwardSpeed -= slowDownRate * Time.deltaTime;
         forwardSpeed = Mathf.Clamp(forwardSpeed, minForwardSpeed, maxForwardSpeed); // Prevent speed from going negative
+        if(forwardSpeed <= 0){
+            end.text = "GAME OVER,\nYOU COULDN'T MAKE IT IN TIME";
+        }
 
         // Check if 'C' is pressed to start resetting Z-axis rotation
         if (Input.GetKeyDown(KeyCode.C))

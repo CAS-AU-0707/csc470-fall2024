@@ -10,28 +10,37 @@ public class PlaneScript : MonoBehaviour
     float maxForwardSpeed = 70f; // The maximum speed (resets to this on collision)
     float minForwardSpeed = 0f; // Minimum speed (plane stops at this speed)
     float slowDownRate = 5f; // Rate at which the plane slows down over time
-    float xRotationSpeed = 60f; // Pitch (up and down)
-    float yRotationSpeed = 70f; // Yaw (left and right)
-    float zRotationSpeed = 60f; // Roll (tilt left and right)
+    float xRotationSpeed = 80f; // Pitch (up and down)
+    float yRotationSpeed = 50f; // Yaw (left and right)
+    float zRotationSpeed = 75f; // Roll (tilt left and right)
     float zResetSpeed = 2f; // Speed at which the Z-axis rotation is reset
-    bool resetZRotation = false;
-    int score = 0;
+    bool resetZRotation = false; // Should to plane flaten
+    int score = 0; // Score
+    float stoptime = 0f; // Recorde home much time has passed
+    bool stop = false; // Is the plane stopped
+    Vector3 initialCameraPosition = new Vector3(0f, 5f, -15f);  // Start position
+    Vector3 finalCameraPosition = new Vector3(0f, 3f, -10f);    // End position
 
     public TMP_Text scoreText;
     public TMP_Text end;
+    public TMP_Text sTime;
+    public GameObject cameraObject;
 
-    void Start()
+    void Start() 
     {
-        // Optional: Initialize speed or other variables if needed
+
     }
 
     void Update()
     {
+        // Move the camera based on forward speed
+        MoveCamera();
+
         // Movement inputs
         float pitch = Input.GetAxis("Vertical"); // W/S or UP/DOWN for pitch
         float roll = Input.GetAxis("Horizontal"); // A/D or LEFT/RIGHT for roll
         float yaw = 0f;
-
+        
         // Yaw input
         if (Input.GetKey(KeyCode.Q))
         {
@@ -60,8 +69,18 @@ public class PlaneScript : MonoBehaviour
         forwardSpeed = Mathf.Clamp(forwardSpeed, minForwardSpeed, maxForwardSpeed); // Prevent speed from going negative
         if (forwardSpeed == 0 && end.text != "YOU WIN!"){
             end.text = "You Lose\nRefresh to try again.";
+            sTime.text = "";
+            stop = true;
         }
 
+        if(!stop){
+            stoptime += Time.deltaTime;
+
+            // Updates the time left
+            sTime.text = ((int)(15f - stoptime)).ToString();
+        }
+
+        
 
         // Check if 'C' is pressed to start resetting Z-axis rotation
         if (Input.GetKeyDown(KeyCode.C))
@@ -101,9 +120,20 @@ public class PlaneScript : MonoBehaviour
             if (score == 21){
                 scoreText.text = "";
                 end.text = "YOU WIN!";
+                sTime.text = "";
             }
             scoreText.text = "Score: " + score + "\nRemaining:" + (21 - score);
+            stoptime = 0;
 
         }     
+    }
+
+    public void MoveCamera()
+    {
+        // Calculate the interpolation factor based on the forward speed
+        float t = Mathf.InverseLerp(maxForwardSpeed, minForwardSpeed, forwardSpeed);
+
+        // Interpolate between initial and final camera positions
+        cameraObject.transform.localPosition = Vector3.Lerp(initialCameraPosition, finalCameraPosition, t);
     }
 }

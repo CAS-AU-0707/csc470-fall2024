@@ -58,9 +58,10 @@ public class PlaneScript : MonoBehaviour
         // Gradually reduce the forward speed over time
         forwardSpeed -= slowDownRate * Time.deltaTime;
         forwardSpeed = Mathf.Clamp(forwardSpeed, minForwardSpeed, maxForwardSpeed); // Prevent speed from going negative
-        if(forwardSpeed <= 0){
-            end.text = "GAME OVER,\nYOU COULDN'T MAKE IT IN TIME";
+        if (forwardSpeed == 0 && end.text != "YOU WIN!"){
+            end.text = "You Lose\nRefresh to try again.";
         }
+
 
         // Check if 'C' is pressed to start resetting Z-axis rotation
         if (Input.GetKeyDown(KeyCode.C))
@@ -104,18 +105,5 @@ public class PlaneScript : MonoBehaviour
             scoreText.text = "Score: " + score + "\nRemaining:" + (21 - score);
 
         }     
-    }
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        // Check if the collided object is the terrain (assuming it has the tag "Terrain")
-        if (collision.gameObject.CompareTag("Terrain"))
-        {
-            // Print a message to the console
-            Debug.Log("Plane hit the terrain and will be destroyed.");
-
-            // Destroy the plane (this GameObject)
-            Destroy(gameObject);
-        }
     }
 }

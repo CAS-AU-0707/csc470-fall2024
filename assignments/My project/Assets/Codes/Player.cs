@@ -13,23 +13,27 @@ public class Player : MonoBehaviour
     float grav = -20f;
     bool dou = false;
 
-    float zVel = 1f;
+    float zVel = 30f;
     float zGrav = -15f;
 
     float moveSpeed = 15f;
     float turnSpeed = 130f;
 
-    int col = 3;
+    int col = 6;
     float timer = 0;
     bool gameover = false;
     bool ig = false;
     public int lives = 3;
     bool key = false;
+    int boost = 5;
+    bool bos = false;
 
     public TMP_Text colletables;
     public TMP_Text time;
     public TMP_Text center;
     public TMP_Text life;
+    public TMP_Text boostCount;
+
 
 
 
@@ -51,7 +55,23 @@ public class Player : MonoBehaviour
             float vAxis = Input.GetAxis("Vertical");
 
             transform.Rotate(0, turnSpeed * hAxis * Time.deltaTime, 0);
-        
+
+            if (Input.GetKeyDown(KeyCode.LeftShift) && (boost > 0 || ig))
+            {
+                bos = true;
+                moveSpeed = 40f;
+                boost--;
+            }
+            else if (bos)
+            {
+                moveSpeed -= 20f * Time.deltaTime;
+                if (moveSpeed <= 15f)
+                {
+                    moveSpeed = 15f;
+                    bos = false;
+                }
+            }
+
             Vector3 amountToMove = transform.forward * moveSpeed * vAxis;
 
             if (!cc.isGrounded){
@@ -77,20 +97,25 @@ public class Player : MonoBehaviour
 
             timer += Time.deltaTime;
 
-            if(col == 0){
-                    center.text = "You Win!";
-                    time.text = "";
+            if(col == 0 || Input.GetKeyDown(KeyCode.G)){
+                center.text = "You Win!";
+                time.text = "";
                 colletables.text = "";
+                life.text = "";
+                gameover = !gameover;
             }
-            else if(timer >= 20){
+            else if(timer >= 40 || lives == 0){
                 gameover = true;
                 time.text = "";
                 colletables.text = "";
+                life.text = "";
             }
             else{
-                time.text = ((int)(20f - timer)).ToString();
+                time.text = ((int)(40f - timer)).ToString();
                 colletables.text = col.ToString();
                 center.text = "";
+                life.text = "Lives: " + lives.ToString();
+                boostCount.text = "Boost: " + boost.ToString();
             }
         }
         else{
@@ -121,10 +146,22 @@ public class Player : MonoBehaviour
 
         if (other.CompareTag("door") && key)
         {
-
             // Removes/destroys the Collectable
             Destroy(other.gameObject);
 
         }
+
+        if (other.CompareTag("LAVA") && key)
+        {
+
+            // Removes/destroys the Collectable
+            lives = 0;
+
+        }
+        else
+        {
+            Debug.Log("HIT!");
+        }
+
     }
 }

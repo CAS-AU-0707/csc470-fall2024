@@ -24,6 +24,7 @@ public class Player : MonoBehaviour
     bool gameover = false;
     bool ig = false;
     public int lives = 3;
+    bool key = false;
 
     public TMP_Text colletables;
     public TMP_Text time;
@@ -108,6 +109,22 @@ public class Player : MonoBehaviour
             col--;
             timer = 0;
 
-        }     
+        }
+
+        if (other.CompareTag("key"))
+        {
+
+            // Removes/destroys the Collectable
+            Destroy(other.gameObject);
+            key = true;
+        }
+
+        if (other.CompareTag("door") && key)
+        {
+
+            // Removes/destroys the Collectable
+            Destroy(other.gameObject);
+
+        }
     }
 }

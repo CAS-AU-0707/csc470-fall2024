@@ -10,7 +10,7 @@ public class Player : MonoBehaviour
     float jump = 10f;
     float jump1 = 7.5f;
     float vel = 0;
-    float grav = -10f;
+    float grav = -20f;
     bool dou = false;
 
     float zVel = 1f;
@@ -23,10 +23,12 @@ public class Player : MonoBehaviour
     float timer = 0;
     bool gameover = false;
     bool ig = false;
+    public int lives = 3;
 
     public TMP_Text colletables;
     public TMP_Text time;
     public TMP_Text center;
+    public TMP_Text life;
 
 
 

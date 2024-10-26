@@ -127,10 +127,8 @@ public class Player : MonoBehaviour
     {
         if(other.CompareTag("collectable")){
             
-            // Removes/destroys the Collectable
             Destroy(other.gameObject);
 
-            // Adds to score and scoreText
             col--;
             timer = 0;
 
@@ -139,22 +137,19 @@ public class Player : MonoBehaviour
         if (other.CompareTag("key"))
         {
 
-            // Removes/destroys the Collectable
             Destroy(other.gameObject);
             key = true;
         }
 
         if (other.CompareTag("door") && key)
         {
-            // Removes/destroys the Collectable
             Destroy(other.gameObject);
 
         }
 
-        if (other.CompareTag("LAVA") && key)
+        if (other.CompareTag("LAVA"))
         {
 
-            // Removes/destroys the Collectable
             lives = 0;
 
         }

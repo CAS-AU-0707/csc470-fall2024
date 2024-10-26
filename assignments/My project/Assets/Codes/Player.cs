@@ -103,6 +103,7 @@ public class Player : MonoBehaviour
                 colletables.text = "";
                 life.text = "";
                 gameover = !gameover;
+                col = 0;
             }
             else if(timer >= 40 || lives == 0){
                 gameover = true;
@@ -118,7 +119,7 @@ public class Player : MonoBehaviour
                 boostCount.text = "Boost: " + boost.ToString();
             }
         }
-        else{
+        else if (gameover && col > 0 ){
             center.text = "Game Over";
         }
     }

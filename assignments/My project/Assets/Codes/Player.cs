@@ -112,8 +112,8 @@ public class Player : MonoBehaviour
                 life.text = "";
             }
             else{
-                time.text = ((int)(40f - timer)).ToString();
-                colletables.text = "Gems: "col.ToString();
+                time.text =  ((int)(40f - timer)).ToString();
+                colletables.text = "Gems: " + col.ToString();
                 center.text = "";
                 life.text = "Lives: " + lives.ToString();
                 boostCount.text = "Boost: " + boost.ToString();

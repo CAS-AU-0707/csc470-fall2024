@@ -113,7 +113,7 @@ public class Player : MonoBehaviour
             }
             else{
                 time.text = ((int)(40f - timer)).ToString();
-                colletables.text = col.ToString();
+                colletables.text = "Gems: "col.ToString();
                 center.text = "";
                 life.text = "Lives: " + lives.ToString();
                 boostCount.text = "Boost: " + boost.ToString();

@@ -261,6 +261,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cellPrefab: {fileID: 206493229638933561, guid: 7f9c707b12c9e7f42b391d3cbb97a5ae, type: 3}
+  playerSelections: 00000000000000000000000000000000
+  gameStarted: 0
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -347,7 +349,7 @@ Transform:
   m_GameObject: {fileID: 963194225}
   serializedVersion: 2
   m_LocalRotation: {x: 0.7071068, y: 0.00000008940697, z: -0.000000059604645, w: 0.7071068}
-  m_LocalPosition: {x: 5.5, y: 10, z: 5}
+  m_LocalPosition: {x: 50, y: 97, z: 49}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

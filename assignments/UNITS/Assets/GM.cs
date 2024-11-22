@@ -27,6 +27,9 @@ public class GameManager : MonoBehaviour
 
     LayerMask layerMask;
 
+    public TMP_Text r;
+    public int rock = 0;
+
     void OnEnable()
     {
         if (GameManager.instance == null)
@@ -47,6 +50,9 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
+        // Update rock count text
+        r.text = "Rocks: " + rock.ToString();
+
         if (Input.GetKeyDown(KeyCode.Space))
         {
             SpacebarPressed?.Invoke();

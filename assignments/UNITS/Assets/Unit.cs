@@ -32,6 +32,8 @@ public class Unit : MonoBehaviour
 
     float rotateSpeed;
 
+    public bool end = false;
+
     LayerMask layerMask;
 
     void OnEnable()
@@ -77,11 +79,6 @@ public class Unit : MonoBehaviour
 
     void Start()
     {
-        nma = GetComponent<NavMeshAgent>(); // Ensure nma is assigned
-        if (nma == null)
-        {
-            Debug.LogError($"NavMeshAgent not found on {gameObject.name}");
-        }
         // Store the original y-position of the object
         originalY = transform.position.y;
         rand = Random.Range(0f, 1f);
@@ -108,5 +105,28 @@ public class Unit : MonoBehaviour
         float newY = originalY + Mathf.Sin((time + rand) * hoverSpeed) * hoverHeight;
         transform.position = new Vector3(transform.position.x, newY, transform.position.z);
         time += Time.deltaTime;
+    }
+
+    public void OnTriggerEnter(Collider other)
+    {
+        // Increment count if a unit enters the boundary
+        if (other.CompareTag("Tree"))
+        {
+            end = true;
+        }
+    }
+
+    public void OnTriggerExit(Collider other)
+    {
+        // Decrement count if a unit exits the boundary
+        if (other.CompareTag("Tree"))
+        {
+            end = false;
+        }
+    }
+    
+    xpublic bool here()
+    {
+        return end;
     }
 }

@@ -284,10 +284,10 @@ PrefabInstance:
       addedObject: {fileID: 1053374849011246269}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 34d10425ce944f74eb7cf019107c091a, type: 3}
       insertIndex: -1
-      addedObject: {fileID: -4793019626504799086}
+      addedObject: {fileID: 6407942812876804212}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 34d10425ce944f74eb7cf019107c091a, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 6407942812876804212}
+      addedObject: {fileID: 9203037080213554244}
   m_SourcePrefab: {fileID: 100100000, guid: 34d10425ce944f74eb7cf019107c091a, type: 3}
 --- !u!1 &2206668131576473341 stripped
 GameObject:
@@ -337,29 +337,6 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &-4793019626504799086
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2206668131576473341}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f19820deb2732b0479385ba70faeee35, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  unitName: Bat
-  bio: Bats are the worker bees you will be using to win the game. You can select
-    one and then press on a spot on  the ground you wish them to move too.
-  stats: Mine 1/m
-  nma: {fileID: 1053374849011246269}
-  bodyRenderer: {fileID: 0}
-  normalColor: {r: 0, g: 0, b: 0, a: 0}
-  selectedColor: {r: 0, g: 0, b: 0, a: 0}
-  selectEffectPrefab: {fileID: 5181426101860770958, guid: 7121f1fd219a51042ba8a531ada1ac7d, type: 3}
-  destination: {x: 0, y: 0, z: 0}
-  selected: 0
 --- !u!54 &6407942812876804212
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -387,3 +364,26 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &9203037080213554244
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2206668131576473341}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c5970336a4649049965eba93ab371ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unitName: Bat
+  bio: Mining power 1
+  stats: Mine 1/s
+  nma: {fileID: 1053374849011246269}
+  bodyRenderer: {fileID: 0}
+  normalColor: {r: 0, g: 0, b: 0, a: 0}
+  selectedColor: {r: 0, g: 0, b: 0, a: 0}
+  selectEffectPrefab: {fileID: 5181426101860770958, guid: 7121f1fd219a51042ba8a531ada1ac7d, type: 3}
+  destination: {x: 0, y: 0, z: 0}
+  selected: 0
+  end: 0

@@ -27,8 +27,18 @@ public class GameManager : MonoBehaviour
 
     LayerMask layerMask;
 
+    int here = 0;
+    int linesP = 0;
+    int stars = 1;
+    public List<Lines2> lines = new List<Lines2>();
+    public TMP_Text starText;
+
     public TMP_Text r;
     public int rock = 0;
+    public int uRock = 1;
+
+    public TMP_Text turn;
+    int turns =11;
 
     void OnEnable()
     {
@@ -44,21 +54,57 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        turn.text = "Clicks " + turns.ToString();
+        popUpWindow.SetActive(false);
         // Set up LayerMask for ground and units
         layerMask = (1 << LayerMask.NameToLayer("ground")) | (1 << LayerMask.NameToLayer("unit"));
     }
 
     void Update()
     {
+        turn.text = "Clicks " + turns.ToString();
+        here = 0;
+        linesP = 0;
+        foreach (Unit u in units)
+        {
+            if (u.here() == true)
+            {
+                here++;
+            }
+        }
+
+        if (here >= 4)
+        {
+            foreach (Lines2 x in lines)
+            {
+                if(x.checkPassed() == true)
+                {
+                    linesP++;
+                }
+            }
+
+            if (linesP >= 2)
+            {
+                stars = 2;
+                if (linesP >= 4)
+                {
+                    stars = 3;
+                }
+            }
+
+            starText.text = "You got " + stars.ToString() + " / 3 Stars";
+            popUpWindow.SetActive(true);
+        }
+
         // Update rock count text
-        r.text = "Rocks: " + rock.ToString();
+        //r.text = "Rocks: " + rock.ToString();
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
             SpacebarPressed?.Invoke();
         }
 
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && turns >= 1)
         {
             Ray mousePositionRay = mainCamera.ScreenPointToRay(Input.mousePosition);
             RaycastHit hitInfo;
@@ -77,6 +123,7 @@ public class GameManager : MonoBehaviour
                     }
                 }
             }
+            turns--;
         }
     }
 

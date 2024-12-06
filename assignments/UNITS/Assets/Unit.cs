@@ -125,7 +125,7 @@ public class Unit : MonoBehaviour
         }
     }
     
-    xpublic bool here()
+    public bool here()
     {
         return end;
     }
